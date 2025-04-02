@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/user/updateForm")
@@ -18,10 +19,20 @@ public class UpdateUserFormController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("userId");
         User user = MemoryUserRepository.getInstance().findUserById(userId);
-        if (user == null) {
+
+        HttpSession session = req.getSession();
+        Object value = session.getAttribute("user");
+
+        if (user == null || value == null) {
             resp.sendRedirect("/");
             return;
         }
+
+        if (!user.equals(value)) {
+            resp.sendRedirect("/");
+            return;
+        }
+
         req.setAttribute("user", user);
         RequestDispatcher rd = req.getRequestDispatcher("/user/update_form.jsp");
         rd.forward(req, resp);
