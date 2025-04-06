@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// 정적 리소스를 포워드
 @WebFilter("/*")
 public class ResourceFilter implements Filter {
     private static final Logger logger = Logger.getLogger(ResourceFilter.class.getName());
