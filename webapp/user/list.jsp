@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.Collection" %>
 <%@ page import="jwp.model.User" %>
 
@@ -16,6 +17,7 @@
 <%@ include file="../include/navigation.jspf" %>
 <div class="navbar-default">
     <%@ include file="../include/header.jspf" %>
+</div>
 
     <div class="container" id="main">
         <table class="table table-striped">
@@ -30,6 +32,7 @@
             </thead>
             <tbody>
             <%
+                User loginedUser = (User) request.getAttribute("user");
                 Collection<User> users = (Collection<User>) request.getAttribute("users");
                 for (User user : users) {
             %>
@@ -40,7 +43,13 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
+                <%
+                    if(loginedUser.isSameUser(user)){
+                %>
                 <th class="col-md-3"><a href="updateForm?userId=<%= user.getUserId() %>" class="btn btn-success" role="button">수정</a></th>
+                <%
+                    }
+                %>
             </tr>
             <%
                 }
