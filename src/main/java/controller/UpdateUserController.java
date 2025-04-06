@@ -9,10 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
 @WebServlet("/user/updateForm")
 public class UpdateUserController extends HttpServlet {
@@ -24,12 +22,18 @@ public class UpdateUserController extends HttpServlet {
         String userId = req.getParameter("userId");
         User user = userRepository.findUserById(userId);
 
-        System.out.println("User Attribute : " + user);
-        req.setAttribute("users", user);
+        HttpSession session = req.getSession();
+        Object value = session.getAttribute("user");
+        if (value != null && value.equals(user)) {
+            System.out.println("User Attribute : " + user);
+            req.setAttribute("users", user);
 
-        String viewPath = "/user/updateForm.jsp";
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(viewPath);
-        requestDispatcher.forward(req, resp);
+            String viewPath = "/user/updateForm.jsp";
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher(viewPath);
+            requestDispatcher.forward(req, resp);
+            return;
+        }
+        resp.sendRedirect("/user/userList");
     }
 
     @Override
