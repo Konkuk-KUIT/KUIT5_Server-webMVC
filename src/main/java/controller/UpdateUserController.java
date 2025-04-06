@@ -10,16 +10,16 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/signup")
-public class CreateUserController extends HttpServlet {
+@WebServlet("/user/update")
+public class UpdateUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User(req.getParameter("userId"),
                 req.getParameter("password"),
                 req.getParameter("name"),
                 req.getParameter("email"));
-        MemoryUserRepository.getInstance().addUser(user);
-//        System.out.println("User 회원가입 완료");
+        MemoryUserRepository.getInstance().changeUserInfo(user);
+//        System.out.println("User 정보 수정 완료");
 
         resp.sendRedirect("/user/userList");
     }
