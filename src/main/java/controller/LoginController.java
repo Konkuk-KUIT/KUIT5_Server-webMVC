@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/user/login")
@@ -33,7 +34,12 @@ public class LoginController extends HttpServlet {
 
         System.out.println(userById);
 
+        // 세션 생성
+        // 세션에 로그인된 회원 정보 보관
         if (userById != null && userById.isSameUser(userId) && userById.matchPassword(password)) {
+            HttpSession session = req.getSession();
+            session.setAttribute("user", userById);
+
             resp.setHeader("Set-Cookie", "logined-true");
             resp.sendRedirect("/");
             return;
