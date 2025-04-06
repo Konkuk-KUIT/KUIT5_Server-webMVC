@@ -5,9 +5,9 @@ import core.mvc.Controller;
 import jwp.model.User;
 import jwp.util.UserSessionUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.Collection;
 
 public class ListUserController implements Controller {

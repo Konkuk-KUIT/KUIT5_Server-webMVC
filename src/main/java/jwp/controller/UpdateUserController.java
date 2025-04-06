@@ -4,8 +4,8 @@ import core.db.MemoryUserRepository;
 import core.mvc.Controller;
 import jwp.model.User;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class UpdateUserController implements Controller {
 
