@@ -40,7 +40,7 @@
                 </th>
                 <th class="col-md-3"><%= user.getEmail() %>
                 </th>
-                <th class="col-md-3"><a href="#" class="btn btn-success" role="button">수정</a></th>
+                <th class="col-md-3"><a href="updateForm?userId=<%= user.getUserId() %>" class="btn btn-success" role="button">수정</a></th>
             </tr>
             <%
                 }
