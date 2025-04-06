@@ -11,7 +11,7 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/updateUserForm")
+@WebServlet("/user/updateForm")
 public class UpdateUserFormController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
