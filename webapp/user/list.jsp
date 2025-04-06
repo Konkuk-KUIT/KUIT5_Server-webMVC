@@ -29,7 +29,10 @@
                 <th class="col-md-3">${user.email}</th>
                 <c:choose>
                 <c:when test="${sessionScope.user.userId eq user.userId}">
-                    <th class="col-md-3"><a href="/user/updateForm?userId=${user.userId}" class="btn btn-success" role="button" >수정</a></th>
+                    <c:url var="url" value="/user/updateForm">
+                    	<c:param name="userId" value="${user.userId}"/>
+                    </c:url>
+                    <th class="col-md-3"><a href="${url}" class="btn btn-success" role="button" >수정</a></th>
                 </c:when>
                 <c:otherwise>
                     <th class="col-md-3"><a href="" class="btn btn-success" role="button" >수정</a></th>
