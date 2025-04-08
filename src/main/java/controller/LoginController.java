@@ -11,24 +11,22 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/login")
-public class LoginController extends HttpServlet {
+public class LoginController implements Controller{
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         String userId = req.getParameter("userId");
         String password = req.getParameter("password");
 
         User findUser = MemoryUserRepository.getInstance().findUserById(userId);
 
         if (findUser == null || !findUser.matchPassword(password)) {
-            resp.sendRedirect("/user/login_failed.jsp");
-            return;
+            return "redirect:/user/login_failed.jsp";
         }
 
         HttpSession session = req.getSession();
         session.setAttribute("user", findUser);
 
-        resp.sendRedirect("/");
+        return "redirect:/";
     }
 }
