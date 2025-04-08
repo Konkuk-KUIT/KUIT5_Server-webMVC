@@ -1,6 +1,7 @@
 package controller.implemetation;
 
 import controller.Controller;
+import controller.MyView;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,10 +13,11 @@ import java.io.IOException;
 @Slf4j
 public class LogoutController implements Controller {
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("LogoutController called");
         HttpSession session = request.getSession();
         session.removeAttribute("user");
         response.sendRedirect("/");
+        return null;
     }
 }

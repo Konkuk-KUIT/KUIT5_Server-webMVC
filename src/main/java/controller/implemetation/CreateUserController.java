@@ -1,6 +1,7 @@
 package controller.implemetation;
 
 import controller.Controller;
+import controller.MyView;
 import core.db.MemoryUserRepository;
 import jwp.model.User;
 
@@ -18,12 +19,10 @@ public class CreateUserController implements Controller {
     MemoryUserRepository memoryUserRepository = MemoryUserRepository.getInstance();
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("SignupController called");
         if (request.getMethod().equalsIgnoreCase("GET")) {
-            String viewPath = "/user/form.jsp";
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
-            requestDispatcher.forward(request, response);
+            return new MyView("/user/form.jsp");
         } else if (request.getMethod().equalsIgnoreCase("POST")) {
             User user = new User(request.getParameter("userId"),
                     request.getParameter("password"),
@@ -34,8 +33,10 @@ public class CreateUserController implements Controller {
 
             // 잘 전달되었는지 확인
             response.sendRedirect("/user/userList");
+            return null;
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
     }
 }

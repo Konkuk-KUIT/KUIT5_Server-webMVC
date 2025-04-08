@@ -1,6 +1,7 @@
 package controller.implemetation;
 
 import controller.Controller;
+import controller.MyView;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,10 +14,8 @@ import java.io.IOException;
 @Slf4j
 public class HomeController implements Controller {
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("HomeController called");
-        String viewPath = "/home.jsp";
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
-        requestDispatcher.forward(request, response);
+        return new MyView("/home.jsp");
     }
 }

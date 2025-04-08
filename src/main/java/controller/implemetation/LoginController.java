@@ -1,6 +1,7 @@
 package controller.implemetation;
 
 import controller.Controller;
+import controller.MyView;
 import core.db.MemoryUserRepository;
 import jwp.model.User;
 
@@ -19,12 +20,10 @@ public class LoginController implements Controller {
     private MemoryUserRepository userRepository = MemoryUserRepository.getInstance();
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getMethod().equalsIgnoreCase("GET")) {
             log.info("LoginController called");
-            String viewPath = "/user/login.jsp";
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
-            requestDispatcher.forward(request, response);
+            return new MyView("/user/login.jsp");
         } else if (request.getMethod().equalsIgnoreCase("POST")) {
             String userId = request.getParameter("userId");
             String password = request.getParameter("password");
@@ -41,11 +40,13 @@ public class LoginController implements Controller {
 
                 response.setHeader("Set-Cookie", "logined-true");
                 response.sendRedirect("/");
-                return;
+                return null;
             }
             response.sendRedirect("/user/login_failed.jsp");
+            return null;
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
     }
 }

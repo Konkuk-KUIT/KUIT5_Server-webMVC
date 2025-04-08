@@ -1,6 +1,7 @@
 package controller.implemetation;
 
 import controller.Controller;
+import controller.MyView;
 import core.db.MemoryUserRepository;
 import jwp.model.User;
 
@@ -18,7 +19,7 @@ public class UpdateUserController implements Controller {
     private MemoryUserRepository userRepository = MemoryUserRepository.getInstance();
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getMethod().equalsIgnoreCase("GET")) {
             System.out.println("UpdateUserController called");
 
@@ -31,12 +32,11 @@ public class UpdateUserController implements Controller {
                 System.out.println("User Attribute : " + user);
                 request.setAttribute("users", user);
 
-                String viewPath = "/user/updateForm.jsp";
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
-                requestDispatcher.forward(request, response);
-                return;
+                return new MyView("/user/updateForm.jsp");
+
             }
             response.sendRedirect("/user/userList");
+            return null;
         } else if (request.getMethod().equalsIgnoreCase("POST")) {
             String userId = request.getParameter("userId");
             User user = userRepository.findUserById(userId);
@@ -48,8 +48,10 @@ public class UpdateUserController implements Controller {
             user.update(updatedUser);
 
             response.sendRedirect("/user/userList");
+            return null;
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
     }
 }

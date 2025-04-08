@@ -1,6 +1,7 @@
 package controller.implemetation;
 
 import controller.Controller;
+import controller.MyView;
 import core.db.MemoryUserRepository;
 import jwp.model.User;
 
@@ -17,7 +18,7 @@ import java.util.Collection;
 @Slf4j
 public class ListUserController implements Controller {
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("MemberList called");
 
         HttpSession session = request.getSession();
@@ -26,10 +27,9 @@ public class ListUserController implements Controller {
             Collection<User> users = MemoryUserRepository.getInstance().findAll();
             request.setAttribute("users", users);
 
-            RequestDispatcher rd = request.getRequestDispatcher("/user/list.jsp");
-            rd.forward(request, response);
-            return;
+            return new MyView("/user/list.jsp");
         }
         response.sendRedirect("/");
+        return null;
     }
 }
