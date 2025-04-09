@@ -13,22 +13,19 @@ import jwp.model.User;
 import java.io.IOException;
 import java.util.Collection;
 
-@WebServlet("/user/userList")
-public class ListUserController extends HttpServlet {
+public class ListUserController implements Controller {
     @Override
-    protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Object user = session.getAttribute("user");
 
         if(user == null) {
-            resp.sendRedirect("/user/login.jsp");
-            return;
+            return "redirect:/user/loginForm";
         }
 
         Collection<User> users = MemoryUserRepository.getInstance().findAll();
         req.setAttribute("users", users);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
-        rd.forward(req, resp);
+        return "/user/list.jsp";
     }
 }

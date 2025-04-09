@@ -10,17 +10,15 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/update")
-public class UpdateUserController extends HttpServlet {
+public class UpdateUserController implements Controller {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User(req.getParameter("userId"),
                 req.getParameter("password"),
                 req.getParameter("name"),
                 req.getParameter("email"));
         MemoryUserRepository.getInstance().changeUserInfo(user);
-//        System.out.println("User 정보 수정 완료");
 
-        resp.sendRedirect("/user/userList");
+        return "redirect:/user/userList";
     }
 }

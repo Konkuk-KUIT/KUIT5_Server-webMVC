@@ -2,7 +2,6 @@ package controller;
 
 import core.db.MemoryUserRepository;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,10 +10,9 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/login")
-public class LoginController extends HttpServlet {
+public class LoginController implements Controller {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("userId");
         String password = req.getParameter("password");
 
@@ -23,9 +21,8 @@ public class LoginController extends HttpServlet {
         if(user != null && password.equals(user.getPassword())) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            resp.sendRedirect("/");
-            return;
+            return "redirect:/";
         }
-        resp.sendRedirect("/user/login_failed.jsp");
+        return "/user/login_failed.jsp";
     }
 }
