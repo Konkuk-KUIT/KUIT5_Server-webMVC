@@ -18,6 +18,7 @@
 
         <form name="sign-up" method="post" action="/user/update">
             <div class="form-floating">
+                <%--아이디는 수정이 안되도록 readOnly 추가--%>
                 <input type="text" class="form-control" id="userId" name="userId" value="${user.userId}" readonly>
                 <label for="userId">User Id</label>
             </div>

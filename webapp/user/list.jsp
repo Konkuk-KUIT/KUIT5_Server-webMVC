@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--jstl--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.Collection" %>
-<%@ page import="jwp.model.User" %>
-
 
 <!doctype html>
 <html lang="ko">
@@ -33,6 +30,7 @@
                 <th class="col-md-3">${user.email}</th>
                 <th class="col-md-3">
                     <%--로그인한 사용자의 정보만 수정가능하도록 분기 처리--%>
+                    <%--세션에 저장되어있는 유저 정보와 비교--%>
                     <c:if test="${sessionScope.user.userId == user.userId}">
                         <a href="/user/updateForm?userId=${user.userId}" class="btn btn-success" role="button">수정</a>
                     </c:if>
