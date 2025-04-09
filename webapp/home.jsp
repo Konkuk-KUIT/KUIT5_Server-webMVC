@@ -22,9 +22,17 @@
         </ul>
 
         <div class="col-md-3 text-end">
-            <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
-        </div>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.user}">
+                            <a href="/user/logout" class="btn btn-outline-primary me-2">Log Out</a>
+                            <a href="/user/updateForm?userId=${sessionScope.user.userId}" class="btn btn-primary">개인정보 수정</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/user/login.jsp" class="btn btn-outline-primary me-2">Log In</a>
+                            <a href="/user/form.jsp" class="btn btn-primary">Sign Up</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
     </header>
 </div>
 
