@@ -21,21 +21,21 @@
 
     <main class="form-signin">
 
-        <form name="update" method="post" action="/user/post-update">
+        <form name="update" method="post" action="/user/updateForm">
             <div class="form-floating">
-                <input type="text" class="form-control" id="userId" name="userId" placeholder="Id" value="${param.userId}" readonly>
+                <input type="text" class="form-control" id="userId" name="userId" placeholder="Id" value="${user.userId}" readonly>
                 <label for="userId">User Id</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="${param.password}">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="${user.password}">
                 <label for="password">Password</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="name" name="name" placeholder="name" value="${param.name}">
+                <input type="text" class="form-control" id="name" name="name" placeholder="name" value="${user.name}" >
                 <label for="name">Name</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="${param.email}">
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="${user.email}">
                 <label for="email">Email address</label>
             </div>
             <div style="height:10px;">
