@@ -1,8 +1,9 @@
 import controller.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,43 +11,35 @@ import java.util.Map;
 
 public class RequestMapper {
     private final HttpServletRequest req;
-    private final HttpServletResponse resp;
     Map<String,Controller> controllers = new HashMap<>();
 
-    public RequestMapper(HttpServletRequest req, HttpServletResponse resp) {
+    public RequestMapper(HttpServletRequest req) {
         this.req = req;
-        this.resp = resp;
         initControllers();
     }
 
-    public String proceed() throws IOException {
-        String uri = req.getRequestURI();
-        String query = req.getQueryString();
+    public String proceed() throws IOException, URISyntaxException {
+        URI uri = new URI(req.getRequestURI());
+        String path = uri.getPath();
 
         Controller controller = null;
-        if(uri.equals("/")){
-            return "/home";
-        }
-
-        // 가장 긴 prefix를 먼저 찾기 위해 정렬 (optional)
         List<String> keys = new ArrayList<>(controllers.keySet());
-        keys.sort((a, b) -> Integer.compare(b.length(), a.length())); // 긴 경로 우선
 
         for (String key : keys) {
-            if (uri.startsWith(key)) {
+            if (path.equals(key)) {
                 controller = controllers.get(key);
                 break;
             }
         }
         if (controller == null) {
-            controller = new ForwardController(); // 또는 NotFoundController
+            controller = new ForwardController();
         }
 
         return controller.execute(req);
     }
 
     private void initControllers(){
-        //controllers.put("/", new HomeController());
+        controllers.put("/", new HomeController());
         controllers.put("/user/signup", new CreateUserController());
         controllers.put("/user/userLogin", new LoginController());
         controllers.put("/user/logout", new LogoutController());

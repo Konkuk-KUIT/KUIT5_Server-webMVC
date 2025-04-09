@@ -13,8 +13,6 @@ public class UpdateUserFormController implements Controller{
         User user = MemoryUserRepository.getInstance().findUserById(id);
         req.setAttribute("user", user);
 
-        //RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
-
         return "/user/updateForm";
     }
 }

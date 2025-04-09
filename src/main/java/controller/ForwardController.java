@@ -6,7 +6,6 @@ import java.io.IOException;
 public class ForwardController implements Controller {
     @Override
     public String execute(HttpServletRequest req) throws IOException {
-        String uri = req.getRequestURI();
-        return uri;
+        return req.getRequestURI();
     }
 }
