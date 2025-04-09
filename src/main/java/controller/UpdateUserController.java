@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jwp.model.User;
 
 import java.io.IOException;
@@ -15,7 +16,20 @@ public class UpdateUserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        HttpSession session = req.getSession();
+        User sessionUser = (User) session.getAttribute("user");
+
+        if (sessionUser == null){
+            resp.sendRedirect("/user/login.jsp");
+            return;
+        }
+
         String userId = req.getParameter("userId");
+        if (!sessionUser.getUserId().equals(userId)){
+            resp.sendRedirect("/user/userList");
+            return;
+        }
+
         String password = req.getParameter("password");
         String name = req.getParameter("name");
         String email = req.getParameter("email");
