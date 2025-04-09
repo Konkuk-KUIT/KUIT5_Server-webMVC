@@ -24,16 +24,19 @@ public class UpdateUserController implements Controller {
             System.out.println("UpdateUserController called");
 
             String userId = request.getParameter("userId");
+            log.info("userId value:{}", userId);
             User user = userRepository.findUserById(userId);
+            log.info("user value:{} ", user);
 
-            HttpSession session = request.getSession();
-            Object value = session.getAttribute("user");
-            if (value != null && value.equals(user)) {
-                System.out.println("User Attribute : " + user);
+            HttpSession session = request.getSession(false);
+
+            User value = (User) session.getAttribute("user");
+            log.info("value value:{}", value);
+
+            if (value != null && value.isSameUser(user)) {
+                log.info("User Attribute : {}", user);
                 request.setAttribute("users", user);
-
                 return new MyView("/user/updateForm.jsp");
-
             }
             response.sendRedirect("/user/userList");
             return null;

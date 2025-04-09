@@ -30,15 +30,14 @@ public class LoginController implements Controller {
 
             User userById = userRepository.findUserById(userId);
 
-            System.out.println(userById);
-
             // 세션 생성
             // 세션에 로그인된 회원 정보 보관
             if (userById != null && userById.isSameUser(userId) && userById.matchPassword(password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", userById);
-
-                response.setHeader("Set-Cookie", "logined-true");
+                log.info("Session ID: {}", session.getId());
+                log.info("Session user: {}", session.getAttribute("user"));
+//                response.setHeader("Set-Cookie", "logined-true");
                 response.sendRedirect("/");
                 return null;
             }
@@ -50,3 +49,4 @@ public class LoginController implements Controller {
         }
     }
 }
+

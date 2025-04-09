@@ -23,27 +23,21 @@
                 <th class="col-md-3">아이디</th>
                 <th class="col-md-3">이름</th>
                 <th class="col-md-3">이메일</th>
-                <th class="col-md-3">#</th>
+                <th class="col-md-3">수정</th>
 
             </tr>
             </thead>
             <tbody>
-            <%
-                Collection<User> users = (Collection<User>) request.getAttribute("users");
-                for (User user : users) {
-            %>
-            <tr>
-                <th class="col-md-3"><%= user.getUserId() %>
-                </th>
-                <th class="col-md-3"><%= user.getName() %>
-                </th>
-                <th class="col-md-3"><%= user.getEmail() %>
-                </th>
-                <th class="col-md-3"><a href="#" class="btn btn-success" role="button">수정</a></th>
-            </tr>
-            <%
-                }
-            %>
+              <c:forEach var="user" items="${users}">
+                <tr>
+                  <td>${user.userId}</td>
+                  <td>${user.name}</td>
+                  <td>${user.email}</td>
+                  <td>
+                    <a href="/user/updateForm?userId=${user.userId}" class="btn btn-success" role="button">수정</a>
+                  </td>
+                </tr>
+              </c:forEach>
             </tbody>
         </table>
     </div>
