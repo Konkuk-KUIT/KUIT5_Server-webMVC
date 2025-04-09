@@ -22,7 +22,7 @@ public class UpdateUserFormController extends HttpServlet {
 
         String userId = req.getParameter("userId");
 
-        if(loginedUser == null || loginedUser.isSameUser(userId)){
+        if(loginedUser == null || !loginedUser.isSameUser(userId)){
             // 로그인 안 된 상태에서 url에 쿼리와 함께 접근 시
             // 혹은 로그인 상태에서 다른 유저의 수정 페이지로 접근 시
             // 서블릿 예외 처리
