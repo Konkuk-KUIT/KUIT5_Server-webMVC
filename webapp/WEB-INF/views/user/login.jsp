@@ -1,6 +1,4 @@
-// jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-// jstl
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
@@ -19,10 +17,7 @@
     </div>
     <div class="container">
       <main class="form-signin">
-        <div>
-          ID와 비밀번호가 틀렸습니다.
-        </div>
-        <form name="login" method="post" action="/user/login">
+        <form name="login" method="post" action="/user/userLogin">
           <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
       
           <div class="form-floating">

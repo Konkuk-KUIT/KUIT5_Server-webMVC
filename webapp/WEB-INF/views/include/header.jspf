@@ -17,8 +17,8 @@
                 <a href="/user/updateForm?userId=${sessionScope.user.userId}" class="btn btn-primary">Update Info</a>
             </c:when>
             <c:otherwise>
-                <a href="/user/login.jsp" class="btn btn-outline-primary me-2">Log-In</a>
-                <a href="/user/form.jsp" class="btn btn-primary">Sign-up</a>
+                <a href="/user/login" class="btn btn-outline-primary me-2">Log-In</a>
+                <a href="/user/form" class="btn btn-primary">Sign-up</a>
             </c:otherwise>
         </c:choose>
     </div>
