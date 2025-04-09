@@ -19,7 +19,7 @@ public class LoginController extends HttpServlet {
         String loginPassword = req.getParameter("password");
 
         User user = MemoryUserRepository.getInstance().findUserById(loginId);
-        if (user != null && user.getPassword().equals(loginPassword)) {
+        if (user != null && user.matchPassword(loginPassword)) {
             // 세션 정보 저장
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
