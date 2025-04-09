@@ -21,8 +21,18 @@
         </ul>
 
         <div class="col-md-3 text-end">
-            <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+<%--            <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Login</a>--%>
+<%--            <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>--%>
+        <c:choose>
+            <c:when test="${not empty sessionScope.user}">
+                <a href="/user/logout" role="button" class="btn btn-outline-primary me-2">Log-Out</a>
+                <a href="/user/updateForm?userId=${sessionScope.user.userId}" role="button" class="btn btn-primary" >개인정보수정</a>
+            </c:when>
+            <c:otherwise>
+                <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Log-In</a>
+                <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+            </c:otherwise>
+        </c:choose>
         </div>
     </header>
 
@@ -38,14 +48,20 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="user">
+<%--            <c:forEach items="${users}" var="user">--%>
+<%--            <tr>--%>
+<%--                <th class="col-md-3">${user.userId}</th>--%>
+<%--                <th class="col-md-3">${user.name}</th>--%>
+<%--                <th class="col-md-3">${user.email}</th>--%>
+<%--                <th class="col-md-3"><a href="/user/updateForm.jsp?userId=${user.userId}" class="btn btn-success" role="button">수정</a></th>--%>
+<%--            </tr>--%>
+<%--            </c:forEach>--%>
             <tr>
                 <th class="col-md-3">${user.userId}</th>
                 <th class="col-md-3">${user.name}</th>
                 <th class="col-md-3">${user.email}</th>
                 <th class="col-md-3"><a href="/user/updateForm.jsp?userId=${user.userId}" class="btn btn-success" role="button">수정</a></th>
             </tr>
-            </c:forEach>
             </tbody>
         </table>
     </div>
