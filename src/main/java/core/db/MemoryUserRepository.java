@@ -38,4 +38,5 @@ public class MemoryUserRepository {
             users.put(user.getUserId(), user);
         }
     }
+
 }
