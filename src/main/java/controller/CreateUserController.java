@@ -25,6 +25,7 @@ public class CreateUserController extends HttpServlet {
         MemoryUserRepository.getInstance().addUser(user);
 
         System.out.println("회원가입 완료");
+        System.out.println("user.getPassword() = " + user.getPassword());
 
         resp.sendRedirect("/user/userList");
     }
