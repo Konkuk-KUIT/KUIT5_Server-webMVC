@@ -11,12 +11,11 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/signup")
-public class CreateUserController extends HttpServlet {
+//@WebServlet("/user/signup")
+public class CreateUserController implements Controller {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    public String process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         User user = new User(req.getParameter("userId"),
                 req.getParameter("password"),
                 req.getParameter("name"),
@@ -25,8 +24,7 @@ public class CreateUserController extends HttpServlet {
         MemoryUserRepository.getInstance().addUser(user);
 
         System.out.println("회원가입 완료");
-        System.out.println("user.getPassword() = " + user.getPassword());
 
-        resp.sendRedirect("/user/userList");
+        return "redirect:/user/userList";
     }
 }

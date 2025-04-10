@@ -10,15 +10,13 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/user/logout")
-public class LogoutUserController extends HttpServlet {
+//@WebServlet("/user/logout")
+public class LogoutUserController implements Controller {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    public String process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         session.removeAttribute("user");
-
-        resp.sendRedirect("/");
+        return "redirect:/";
     }
 }

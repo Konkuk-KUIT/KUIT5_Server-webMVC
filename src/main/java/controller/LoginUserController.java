@@ -11,36 +11,32 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/login")
-public class LoginUserController extends HttpServlet {
+//@WebServlet("/user/login")
+public class LoginUserController implements Controller {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    public String process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String loginId = req.getParameter("userId");
         String loginPassword = req.getParameter("password");
 
         User loginUser = MemoryUserRepository.getInstance().findUserById(loginId);
 
         System.out.println("loginPassword = " + loginPassword);
-        
+
         if(loginUser == null){
-            resp.sendRedirect("/user/login_failed");
-            return;
+            return "redirect:/user/login_failed";
         }
 
         System.out.println("loginUser.getPassword() = " + loginUser.getPassword());
 
         if(!loginUser.getPassword().equals(loginPassword))
         {
-            resp.sendRedirect("/user/login_failed");
-            return;
+            return "redirect:/user/login_failed";
         }
 
         HttpSession session = req.getSession();
         session.setAttribute("user", loginUser);
-        resp.sendRedirect("/");
-
+        return "redirect:/";
 
 
     }

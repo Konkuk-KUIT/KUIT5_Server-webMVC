@@ -10,12 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/user/login_failed")
-public class LoginFailedController extends HttpServlet {
+//WebServlet("/user/login_failed")
+public class LoginFailedController implements Controller {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("/user/login_failed.jsp");
-        rd.forward(req, resp);
+    public String process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        return "/user/login_failed.jsp";
     }
 }

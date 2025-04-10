@@ -12,21 +12,17 @@ import jwp.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/user/updateForm")
-public class UpdateUserFormController extends HttpServlet {
+//@WebServlet("/user/updateForm")
+public class UpdateUserFormController implements Controller {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
+    public String process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         User sessionUser = null;
         Object value = session.getAttribute("user");
 
         if(value == null){
-            RequestDispatcher rd = req.getRequestDispatcher("/user/login.jsp");
-            rd.forward(req, resp);
-            return;
+            return "/user/login.jsp";
         }
 
         if (value != null) {
@@ -37,16 +33,11 @@ public class UpdateUserFormController extends HttpServlet {
         User editUser = MemoryUserRepository.getInstance().findUserById(editUserId);
 
         if(!sessionUser.getUserId().equals(editUserId)){
-            resp.sendRedirect("/user/userList");
-            return;
+            return "redirect:/user/userList";
         }
-
 
         req.setAttribute("user", editUser);
 
-
-        RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
-        rd.forward(req, resp);
+        return "/user/updateForm.jsp";
     }
-
 }
