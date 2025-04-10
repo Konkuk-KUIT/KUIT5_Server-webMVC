@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="jwp.model.User" %>
 <!doctype html>
 <html lang="ko">
-  <%@ include file="/tags/header.jsp" %>
+  <%@ include file="../tags/header.jsp" %>
   <body>
-    <%@ include file="/tags/nav.jsp" %>
+    <%@ include file="../tags/nav.jsp" %>
     <div class="navbar-default">
       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
@@ -18,8 +20,16 @@
         </ul>
 
         <div class="col-md-3 text-end">
-          <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Login</a>
-          <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+          <c:choose>
+                      <c:when test="${not empty sessionScope.user}">
+                      	<a href="/user/logout" role="button" class="btn btn-outline-primary me-2">Log-Out</a>
+                      	<a href="/user/updateForm?userId=${sessionScope.user.userId}" role="button" class="btn btn-primary" >개인정보수정</a>
+                      </c:when>
+                      <c:otherwise>
+                      	<a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Log-In</a>
+                      	<a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+                      </c:otherwise>
+                      </c:choose>
         </div>
       </header>
     </div>
@@ -30,19 +40,19 @@
 
           <form name="sign-up" method="post" action="/user/signup">
             <div class="form-floating">
-              <input type="text" class="form-control" id="userId" name="userId" placeholder="Id">
-              <label for="userId">User Id</label>
-            </div>
+                          <input type="text" class="form-control" id="userId" name="userId" placeholder="Id" value="${user.userId}" readonly>
+                          <label for="userId">User Id</label>
+                        </div>
             <div class="form-floating">
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="${user.password}">
               <label for="password">Password</label>
             </div>
             <div class="form-floating">
-              <input type="text" class="form-control" id="name" name="name" placeholder="name">
+              <input type="text" class="form-control" id="name" name="name" placeholder="name" value="${user.name}">
               <label for="name">Name</label>
             </div>
             <div class="form-floating">
-              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="${user.email}">
               <label for="email">Email address</label>
             </div>
             <div style="height:10px;">

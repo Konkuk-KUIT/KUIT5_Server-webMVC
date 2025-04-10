@@ -11,20 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collection;
 
-public class ListUserController implements Controller {
+public class UpdateUserController implements Controller {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession();
         Object target = session.getAttribute("user");
         User user = (User) target;
-        if(session==null || target == null){
-            return "/user/login";
-        }
-        Collection<User> users = MemoryUserRepository.getInstance().findAll();
-        req.setAttribute("users",users);
-        req.setAttribute("loginUser",user);
-        return "/user/list";
+        req.setAttribute("user",user);
+        return "/user/updateForm";
     }
 }
