@@ -1,35 +1,27 @@
 package controller;
 
 import core.db.MemoryUserRepository;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
+import jwp.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jwp.model.User;
 
-import java.io.IOException;
 import java.util.Collection;
 
-@WebServlet("/user/userList")
-public class ListUserController extends HttpServlet {
+public class ListUserController implements Controller {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         HttpSession session = req.getSession();
         User loginUser = (User) session.getAttribute("user");
 
-        //로그인안했으면 리다이렉트
+        // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
         if (loginUser == null) {
-            resp.sendRedirect("/user/login.jsp");
-            return;
+            return "redirect:/user/loginForm";
         }
 
         Collection<User> users = MemoryUserRepository.getInstance().findAll();
         req.setAttribute("users", users);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
-        rd.forward(req, resp);
+        return "/user/list.jsp";
     }
 }
