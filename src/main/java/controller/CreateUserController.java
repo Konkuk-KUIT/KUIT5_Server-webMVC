@@ -20,7 +20,7 @@ public class CreateUserController implements Controller {
         MemoryUserRepository.getInstance().addUser(user);
         System.out.println("User 회원가입 완료");
 
-        return "redirect:/user/userList";
+        return URI.USER_LIST.redirect();
     }
 
 }

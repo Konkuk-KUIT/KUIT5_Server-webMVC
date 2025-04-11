@@ -8,6 +8,8 @@ import jwp.model.User;
 
 import java.util.Collection;
 
+import static controller.URI.*;
+
 public class ListUserController implements Controller {
 
     @Override
@@ -16,7 +18,7 @@ public class ListUserController implements Controller {
         HttpSession session = req.getSession();
 
         if(session.getAttribute("user") == null) {
-            return ("redirect:/user/login.jsp");
+            return LOGIN.jsp();
         }
 
         if(session.getAttribute("user") != null) {
@@ -27,7 +29,7 @@ public class ListUserController implements Controller {
             req.setAttribute("users", users);
             req.setAttribute("userId", user.getUserId());
 
-            return ("/user/list.jsp");
+            return LIST.jsp();
         }
 
         return null;

@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jwp.model.User;
 
+import static controller.URI.*;
+
 
 public class UpdateUserController implements Controller {
 
@@ -16,7 +18,7 @@ public class UpdateUserController implements Controller {
 
         req.setAttribute("user", user);
 
-        return ("/user/updateForm.jsp");
+        return UPDATE_FORM.jsp();
     }
 
     @Override
@@ -24,6 +26,6 @@ public class UpdateUserController implements Controller {
         User user = new User(req.getParameter("userId"), req.getParameter("password"), req.getParameter("name"), req.getParameter("email"));
         MemoryUserRepository.getInstance().changeUserInfo(user);
 
-        return ("redirect:/user/userList");
+        return USER_LIST.getPath();
     }
 }

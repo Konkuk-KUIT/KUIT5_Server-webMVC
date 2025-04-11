@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jwp.model.User;
 
+import static controller.URI.*;
+
 
 public class LoginController implements Controller {
 
@@ -22,9 +24,9 @@ public class LoginController implements Controller {
         if (user != null && user.getPassword().equals(req.getParameter("password"))) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            return ("redirect:/");
+            return HOME.redirect();
         } else {
-            return ("redirect:/user/login_failed.jsp");
+            return LOGIN_FAILED.jsp();
         }
 
 
