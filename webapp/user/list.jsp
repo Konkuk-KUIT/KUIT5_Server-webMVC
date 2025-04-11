@@ -46,7 +46,7 @@
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/index.html" class="nav-link px-2 link-secondary">Q&A</a></li>
+            <li><a href="/home.jsp" class="nav-link px-2 link-secondary">Q&A</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
             <li><a href="/user/userList" class="nav-link px-2 link-dark">User List</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
@@ -70,22 +70,14 @@
             </tr>
             </thead>
             <tbody>
-            <%
-                Collection<User> users = (Collection<User>) request.getAttribute("users");
-                for (User user : users) {
-            %>
+            <c:forEach items="${users}" var="user">
             <tr>
-                <th class="col-md-3"><%= user.getUserId() %>
-                </th>
-                <th class="col-md-3"><%= user.getName() %>
-                </th>
-                <th class="col-md-3"><%= user.getEmail() %>
-                </th>
+                <th class="col-md-3">${user.userId}</th>
+                <th class="col-md-3">${user.name}</th>
+                <th class="col-md-3">${user.email}</th>
                 <th class="col-md-3"><a href="#" class="btn btn-success" role="button">수정</a></th>
             </tr>
-            <%
-                }
-            %>
+            </c:forEach>
             </tbody>
         </table>
     </div>
