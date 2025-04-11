@@ -14,7 +14,6 @@ import java.io.IOException;
 //@WebServlet("/user/update")
 public class UpdateUserController implements Controller {
 
-
     @Override
     public String process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         User user = new User(req.getParameter("userId"),

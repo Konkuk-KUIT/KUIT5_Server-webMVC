@@ -21,13 +21,10 @@ public class LoginUserController implements Controller {
 
         User loginUser = MemoryUserRepository.getInstance().findUserById(loginId);
 
-        System.out.println("loginPassword = " + loginPassword);
 
         if(loginUser == null){
             return "redirect:/user/login_failed";
         }
-
-        System.out.println("loginUser.getPassword() = " + loginUser.getPassword());
 
         if(!loginUser.getPassword().equals(loginPassword))
         {
@@ -36,8 +33,8 @@ public class LoginUserController implements Controller {
 
         HttpSession session = req.getSession();
         session.setAttribute("user", loginUser);
-        return "redirect:/";
 
+        return "redirect:/";
 
     }
 }
