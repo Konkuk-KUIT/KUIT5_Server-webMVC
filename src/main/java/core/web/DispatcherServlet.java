@@ -21,7 +21,6 @@ private RequestMappingHandler mappingHandler;
     @Override
     public void init(ServletConfig config) throws ServletException {
         mappingHandler = new RequestMappingHandler();
-        mappingHandler.initMapping();
     }
 
     @Override
