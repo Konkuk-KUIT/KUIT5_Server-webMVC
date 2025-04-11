@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/include/header.jspf" %>
 <%@ include file="/include/nav.jspf" %>
 
-    <div class="container">
+<div class="container">
       <main class="form-signin">
         <div>
           ID와 비밀번호가 틀렸습니다.

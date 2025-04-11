@@ -1,11 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.Collection" %>
-<%@ page import="jwp.model.User" %>
 <%@ include file="/include/header.jspf" %>
 <%@ include file="/include/nav.jspf" %>
 
-    <div class="container" id="main">
+<div class="container" id="main">
         <table class="table table-striped">
             <thead class="col-md-12">
             <tr>
