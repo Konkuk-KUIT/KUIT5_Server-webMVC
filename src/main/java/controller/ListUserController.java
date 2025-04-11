@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jwp.model.User;
 
 import java.io.IOException;
@@ -16,6 +17,15 @@ import java.util.Collection;
 public class ListUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User loginUser = (User) session.getAttribute("user");
+
+        //로그인안했으면 리다이렉트
+        if (loginUser == null) {
+            resp.sendRedirect("/user/login.jsp");
+            return;
+        }
+
         Collection<User> users = MemoryUserRepository.getInstance().findAll();
         req.setAttribute("users", users);
 
