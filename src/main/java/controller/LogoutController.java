@@ -1,23 +1,22 @@
 package controller;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import java.io.IOException;
-
-@WebServlet("/user/logout")
-public class LogoutController extends HttpServlet {
+public class LogoutController implements Controller {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         session.removeAttribute("user");
 
-        resp.sendRedirect("/");
+
+        return "redirect:/";
+    }
+
+    @Override
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) {
+        return null;
     }
 }
